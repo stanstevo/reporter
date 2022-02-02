@@ -2,10 +2,7 @@ package com.stats.appraiser.entity;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -19,6 +16,8 @@ public class ActiveCase {
     @NonNull
     private LocalDate eventDate;
 
+    @OneToOne
+    @JoinColumn(name = "case_file_id")
     private CaseFile caseFile;
     
     @NonNull
@@ -32,9 +31,10 @@ public class ActiveCase {
 
 // optional fields
     @Nullable
-    private String appealDeatails;
+    private String appealDetails;
 
-    @Nullable
+    @OneToOne
+    @JoinColumn(name = "judicial_officer_id")
     private JudicialOfficer judicialOfficer;
 
     @Nullable
@@ -46,9 +46,13 @@ public class ActiveCase {
         this.caseType = builder.caseType;
         this.caseEvent = builder.caseEvent;
         this.caseOutcome = builder.caseOutcome;
-        this.appealDeatails = builder.appealDeatails;
+        this.appealDetails = builder.appealDeatails;
         this.judicialOfficer=builder.judicialOfficer;
         this.adjournReason = builder.adjournReason;
+
+    }
+
+    public ActiveCase() {
 
     }
 
@@ -85,8 +89,8 @@ public class ActiveCase {
     }
 
 
-    public String getAppealDeatails() {
-        return appealDeatails;
+    public String getAppealDetails() {
+        return appealDetails;
     }
 
 
