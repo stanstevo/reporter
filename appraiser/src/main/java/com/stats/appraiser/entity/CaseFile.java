@@ -1,3 +1,5 @@
+package com.stats.appraiser.entity;
+
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -5,9 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.NotFound;
+import com.stats.appraiser.entity.CourtLevel;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 
 @Entity
@@ -15,25 +16,16 @@ public class CaseFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NonNull
-    private final LocalDate registeredDate;
-
-    @NonNull
-    private CourtLevel courtLevel; 
-
-    @NonNull
-    private final String fileNumber;
-
-
-    public CaseFile() {
-    }
-
+    private LocalDate registeredDate;
+    private CourtLevel courtLevel;
+    private String fileNumber;
     public CaseFile(long id, LocalDate registeredDate, CourtLevel courtLevel, String fileNumber) {
         this.id = id;
         this.registeredDate = registeredDate;
         this.courtLevel = courtLevel;
         this.fileNumber = fileNumber;
+    }
+    public CaseFile() {
     }
 
     public long getId() {
@@ -87,10 +79,6 @@ public class CaseFile {
     public String toString() {
         
         return courtLevel + "." + fileNumber +  "/"  + registeredDate.getYear();
-    } 
-
-    
-
-    
+    }
 
 }
